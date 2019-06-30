@@ -1,5 +1,5 @@
 const api = {
-    endpoint: 'http://alin-is-selling-stuff-server.herokuapp.com/api/',
+    endpoint: '//alin-is-selling-stuff-server.herokuapp.com/api/',
     login(username, password) {
         return fetch(this.endpoint + 'login', {
             method: 'POST',
