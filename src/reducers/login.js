@@ -1,20 +1,12 @@
-export const loginForm = (state = {username: '', password: '', token: sessionStorage.getItem('token'), error: ''}, action) => {
-    if (action.type === 'LOGIN_FORM_INPUT_CHANGE') {
-        const key = action.payload.inputName;
-        const value = action.payload.inputValue;
+const initialState = {
+    token: sessionStorage.getItem('token'),
+    error: ''
+};
 
-        return {
-            ...state,
-            [key]: value,
-            error: ''
-        };
-    }
-
+export const login = (state = initialState, action) => {
     if (action.type === 'LOGIN_FORM_SUBMIT') {
         return {
             ...state,
-            username: '',
-            password: '',
             error: ''
         };
     }

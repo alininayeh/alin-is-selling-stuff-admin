@@ -17,7 +17,7 @@ const App = ({token}) => {
 };
 
 const mapStateToProps = state => ({
-    token: state.loginForm.token
+    token: state.login.token
 });
 
 export default connect(mapStateToProps)(App);

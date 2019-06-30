@@ -1,10 +1,16 @@
 import React from 'react';
+import {connect} from 'react-redux';
 import Products from './Products';
+import AddProduct from './AddProduct';
 
-const Body = () => {
+const Body = ({showAddProduct}) => {
     return (
-        <Products />
+        showAddProduct ? <AddProduct /> : <Products />
     );
 };
 
-export default Body;
+const mapStateToProps = state => ({
+    showAddProduct: state.products.showAddProduct
+});
+
+export default connect(mapStateToProps, null)(Body);

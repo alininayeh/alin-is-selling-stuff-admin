@@ -1,13 +1,13 @@
 const api = {
     endpoint: '//alin-is-selling-stuff-server.herokuapp.com/api/',
-    async login(username, password) {
+    async login(formData) {
         const res = await fetch(this.endpoint + 'login', {
             method: 'POST',
             mode: 'cors',
             headers: {
                 'Content-Type': 'application/x-www-form-urlencoded'
             },
-            body: `user=${username}&pass=${password}`
+            body: new URLSearchParams(formData)
         });
 
         return res.json();
@@ -15,6 +15,19 @@ const api = {
     async getProducts() {
         const res = await fetch(this.endpoint + 'products', {
             mode: 'cors'
+        });
+
+        return res.json();
+    },
+    async addProduct(token, formData) {
+        const res = await fetch(this.endpoint + 'products', {
+            method: 'POST',
+            mode: 'cors',
+            headers: {
+                'Content-Type': 'application/x-www-form-urlencoded',
+                'token': token
+            },
+            body: new URLSearchParams(formData)
         });
 
         return res.json();

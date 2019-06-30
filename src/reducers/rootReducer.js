@@ -1,8 +1,8 @@
 import { combineReducers } from 'redux';
-import {loginForm} from './login';
+import {login} from './login';
 import {products} from './products';
 
 export default combineReducers({
-    loginForm,
+    login,
     products
 });

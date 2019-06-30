@@ -1,28 +1,13 @@
 import React from 'react';
 import {connect} from 'react-redux';
-import './Login.scss';
-import store from '../store';
 import api from '../utils/api';
 
-const createHandleChangeAction = (e) => {
-    const key = e.currentTarget.name;
-    const value = e.currentTarget.value;
-
-    return {
-        type: 'LOGIN_FORM_INPUT_CHANGE',
-        payload: {
-            inputName: key,
-            inputValue: value
-        }
-    };
-};
-
-const createHandleSubmitAction = (e, username, password) => {
+const getHandleSubmitAction = (e) => {
     e.preventDefault();
 
     return async dispatch => {
         dispatch({type: 'LOGIN_FORM_SUBMIT'});
-        const loginRequest = await api.login(username, password);
+        const loginRequest = await api.login(new FormData(e.currentTarget));
         if (loginRequest.token) {
             dispatch({type: 'LOGIN_FORM_SUBMIT_SUCCESS', payload: {token: loginRequest.token}});
         } else {
@@ -31,14 +16,14 @@ const createHandleSubmitAction = (e, username, password) => {
     };
 };
 
-const Login = ({handleChange, handleSubmit, username, password, error}) => {
+const Login = ({handleSubmit, error}) => {
     if (error) alert(error);
 
     return (
         <div className='Login'>
             <form onSubmit={handleSubmit}>
-                <input type='text' name='username' placeholder='Username' required={true} onChange={handleChange} value={username} />
-                <input type='password' name='password' placeholder='Password' required={true} onChange={handleChange} value={password} />
+                <input type='text' name='user' placeholder='Username' required={true} />
+                <input type='password' name='pass' placeholder='Password' required={true} />
                 <button>Login</button>
             </form>
         </div>
@@ -46,17 +31,11 @@ const Login = ({handleChange, handleSubmit, username, password, error}) => {
 };
 
 const mapStateToProps = state => ({
-    username: state.loginForm.username,
-    password: state.loginForm.password,
-    error: state.loginForm.error
+    error: state.login.error
 });
 
 const mapDispatchToProps = dispatch => ({
-    handleChange: (e) => dispatch(createHandleChangeAction(e)),
-    handleSubmit: (e) => {
-        const {username, password} = store.getState().loginForm;
-        return dispatch(createHandleSubmitAction(e, username, password));
-    }
+    handleSubmit: (e) => dispatch(getHandleSubmitAction(e))
 });
 
 export default connect(mapStateToProps, mapDispatchToProps)(Login);

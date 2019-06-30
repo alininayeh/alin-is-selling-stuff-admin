@@ -1,0 +1,93 @@
+body {
+    font-family: Arial, Helvetica, sans-serif;
+    font-size: 12px;
+    line-height: 17px;
+    margin: 0;
+    padding: 0;
+}
+
+* {
+    box-sizing: border-box;
+}
+
+.button {
+    background: #ccc;
+    border: 0;
+    cursor: pointer;
+    display: block;
+    font-weight: bold;
+    padding: 10px;
+    width: 100%;
+
+    &.secondary {
+        background: #fff;
+        border: 1px solid #ccc;
+        font-weight: normal;
+    }
+}
+
+.textfield {
+    border: 1px solid #ccc;
+    display: block;
+    padding: 10px;
+    width: 100%;
+}
+
+.Login {
+    form {
+        border: 1px solid #ccc;
+        margin: 50px auto;
+        padding: 10px;
+        width: 300px;
+
+        input[type=text],
+        input[type=password] {
+            @extend .textfield;
+            margin-bottom: 10px;
+        }
+
+        button {
+            @extend .button;
+        }
+    }
+}
+
+.Products {
+    padding: 10px;
+
+    button {
+        @extend .button;
+        margin-bottom: 10px;
+    }
+
+    .Product {
+        border: 1px solid #ccc;
+        margin-bottom: 10px;
+        padding: 10px;
+
+        h2 {
+            font-size: 14px;
+            line-height: 19px;
+        }
+    }
+}
+
+.AddProduct {
+    padding: 10px;
+
+    button {
+        @extend .button;
+        margin-bottom: 10px;
+    }
+
+    input[type=text],
+    input[type=number],
+    textarea {
+        @extend .textfield;
+        margin-bottom: 10px;
+    }
+
+    textarea {
+        height: 100px;
+    }
+}
