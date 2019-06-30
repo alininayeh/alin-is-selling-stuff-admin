@@ -31,7 +31,7 @@ const Login = ({handleSubmit, error}) => {
 };
 
 const mapStateToProps = state => ({
-    error: state.login.error
+    error: state.view.error
 });
 
 const mapDispatchToProps = dispatch => ({

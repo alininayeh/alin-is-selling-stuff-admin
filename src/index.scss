@@ -61,13 +61,22 @@ body {
     }
 
     .Product {
+        align-items: center;
         border: 1px solid #ccc;
+        display: flex;
+        justify-content: space-between;
         margin-bottom: 10px;
         padding: 10px;
 
         h2 {
             font-size: 14px;
             line-height: 19px;
+            margin: 0;
+        }
+
+        button {
+            flex-basis: 100px;
+            margin: 0;
         }
     }
 }
@@ -80,14 +89,40 @@ body {
         margin-bottom: 10px;
     }
 
-    input[type=text],
-    input[type=number],
-    textarea {
-        @extend .textfield;
+    .AddProductForm {
+        input[type=text],
+        input[type=number],
+        textarea {
+            @extend .textfield;
+            margin-bottom: 10px;
+        }
+
+        textarea {
+            height: 100px;
+        }
+
+        .AddProductForm-addImage {
+            border: 1px solid #ccc;
+            cursor: pointer;
+            display: inline-block;
+            margin-bottom: 10px;
+            padding: 10px;
+        }
+    }
+}
+
+.AddImage {
+    padding: 10px;
+
+    button {
+        @extend .button;
         margin-bottom: 10px;
     }
 
-    textarea {
-        height: 100px;
+    .AddImageForm {
+        input[type=file] {
+            @extend .textfield;
+            margin-bottom: 10px;
+        }
     }
 }

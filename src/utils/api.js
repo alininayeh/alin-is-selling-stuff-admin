@@ -3,10 +3,10 @@ const api = {
     async login(formData) {
         const res = await fetch(this.endpoint + 'login', {
             method: 'POST',
-            mode: 'cors',
             headers: {
                 'Content-Type': 'application/x-www-form-urlencoded'
             },
+            mode: 'cors',
             body: new URLSearchParams(formData)
         });
 
@@ -24,10 +24,35 @@ const api = {
             method: 'POST',
             mode: 'cors',
             headers: {
-                'Content-Type': 'application/x-www-form-urlencoded',
-                'token': token
+                'token': token,
+                'Content-Type': 'application/x-www-form-urlencoded'
             },
             body: new URLSearchParams(formData)
+        });
+
+        return res.json();
+    },
+    async upload(token, formData) {
+        const res = await fetch(this.endpoint + 'upload', {
+            method: 'POST',
+            mode: 'cors',
+            headers: {
+                'token': token
+            },
+            body: formData
+        });
+
+        return res.json();
+    },
+    async deleteProduct(token, id) {
+        const res = await fetch(this.endpoint + 'products', {
+            method: 'DELETE',
+            mode: 'cors',
+            headers: {
+                'token': token,
+                'Content-Type': 'application/x-www-form-urlencoded'
+            },
+            body: `id=${id}`
         });
 
         return res.json();

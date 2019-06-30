@@ -2,15 +2,22 @@ import React from 'react';
 import {connect} from 'react-redux';
 import Products from './Products';
 import AddProduct from './AddProduct';
+import AddImage from './AddImage';
 
-const Body = ({showAddProduct}) => {
+const Body = ({showProducts, showAddProduct, showAddImage}) => {
     return (
-        showAddProduct ? <AddProduct /> : <Products />
+        <React.Fragment>
+            {showProducts && <Products />}
+            {showAddProduct && <AddProduct />}
+            {showAddImage && <AddImage />}
+        </React.Fragment>
     );
 };
 
 const mapStateToProps = state => ({
-    showAddProduct: state.products.showAddProduct
+    showProducts: state.view.showProducts,
+    showAddProduct: state.view.showAddProduct,
+    showAddImage: state.view.showAddImage
 });
 
 export default connect(mapStateToProps, null)(Body);

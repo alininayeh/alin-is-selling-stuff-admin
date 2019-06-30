@@ -1,44 +1,40 @@
 const initialState = {
     products: [],
-    showAddProduct: false,
-    error: ''
+    product: {
+        name: '',
+        description: '',
+        image: '',
+        price: ''
+    }
 };
 
 export const products = (state = initialState, action) => {
     if (action.type === 'PRODUCTS_GET') {
         return {
             ...state,
-            products: action.payload.products
+            products: action.payload.products,
+            product: initialState.product
         };
     }
 
-    if (action.type === 'PRODUCTS_SHOW_ADD_PRODUCT') {
+    if (action.type === 'PRODUCTS_INPUT_CHANGE') {
         return {
             ...state,
-            showAddProduct: true
-        }
+            product: {
+                ...state.product,
+                [action.payload.key]: action.payload.value
+            }
+        };
     }
 
-    if (action.type === 'PRODUCTS_HIDE_ADD_PRODUCT') {
+    if (action.type === 'PRODUCT_ADD_IMAGE_SUCCESS') {
         return {
             ...state,
-            showAddProduct: false
-        }
-    }
-
-    if (action.type === 'PRODUCTS_ADD_PRODUCT_SUCCESS') {
-        return {
-            ...state,
-            showAddProduct: false,
-            error: ''
-        }
-    }
-
-    if (action.type === 'PRODUCTS_ADD_PRODUCT_ERROR') {
-        return {
-            ...state,
-            error: action.payload.error
-        }
+            product: {
+                ...state.product,
+                image: action.payload.imageUrl
+            }
+        };
     }
 
     return state;

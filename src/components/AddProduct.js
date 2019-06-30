@@ -4,10 +4,14 @@ import api from '../utils/api';
 import store from '../store';
 
 const getCancelAction = () => ({
-    type: 'PRODUCTS_HIDE_ADD_PRODUCT'
+    type: 'VIEW_HIDE_ADD_PRODUCT'
 });
 
-const getHandleFormSubmitAction = (e) => {
+const getAddImageAction = () => ({
+    type: 'VIEW_SHOW_ADD_IMAGE'
+});
+
+const getHandleFormSubmitAction = e => {
     e.preventDefault();
 
     const token = store.getState().login.token;
@@ -18,7 +22,7 @@ const getHandleFormSubmitAction = (e) => {
 
         if (!addProduct.error) {
             dispatch({
-                type: 'PRODUCTS_ADD_PRODUCT_SUCCESS'
+                type: 'VIEW_HIDE_ADD_PRODUCT'
             });
         } else {
             dispatch({
@@ -32,29 +36,48 @@ const getHandleFormSubmitAction = (e) => {
     };
 };
 
-const AddProduct = ({error, cancelAction, handleFormSubmit}) => {
+const getHandleChangeAction = e => {
+    const key = e.currentTarget.name;
+    const value = e.currentTarget.value;
+    
+    return {
+        type: 'PRODUCTS_INPUT_CHANGE',
+        payload: {key, value}
+    };
+};
+
+const AddProduct = ({error, cancel, addImage, handleFormSubmit, product, handleChange}) => {
     if (error) alert(error);
 
     return (
         <div className='AddProduct'>
             <form className='AddProductForm' onSubmit={handleFormSubmit}>
-                <input type='text' name='name' placeholder='Name' />
-                <textarea name='description' placeholder='Description'></textarea>
-                <input type='number' name='price' placeholder='Price' />
+                <input type='text' name='name' placeholder='Name' required={true} value={product.name} onChange={handleChange} />
+                <textarea name='description' placeholder='Description' required={true} value={product.description} onChange={handleChange}></textarea>
+                <input type='number' name='price' placeholder='Price' required={true} value={product.price} onChange={handleChange} />
+                {
+                    product.image ?
+                    <input type='hidden' name='image' value={product.image} /> :
+                    <span className='AddProductForm-addImage' onClick={addImage}>Add image</span>
+                }
+                
                 <button>Add product</button>
             </form>
-            <button className='secondary' onClick={cancelAction}>Cancel</button>
+            <button className='secondary' onClick={cancel}>Cancel</button>
         </div>
     );
 };
 
 const mapStateToProps = state => ({
-    error: state.products.error
+    error: state.view.error,
+    product: state.products.product
 });
 
 const mapDispatchToProps = dispatch => ({
-    cancelAction: () => dispatch(getCancelAction()),
-    handleFormSubmit: (e) => dispatch(getHandleFormSubmitAction(e))
+    cancel: () => dispatch(getCancelAction()),
+    addImage: () => dispatch(getAddImageAction()),
+    handleFormSubmit: (e) => dispatch(getHandleFormSubmitAction(e)),
+    handleChange: (e) => dispatch(getHandleChangeAction(e))
 });
 
 export default connect(mapStateToProps, mapDispatchToProps)(AddProduct);

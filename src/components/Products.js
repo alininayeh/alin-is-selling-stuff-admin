@@ -14,7 +14,7 @@ const getProductsAction = () => {
 };
 
 const getShowAddProductAction = () => ({
-    type: 'PRODUCTS_SHOW_ADD_PRODUCT'
+    type: 'VIEW_SHOW_ADD_PRODUCT'
 });
 
 class Products extends React.Component {

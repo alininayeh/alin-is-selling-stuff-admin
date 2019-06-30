@@ -1,13 +1,11 @@
 const initialState = {
     token: sessionStorage.getItem('token'),
-    error: ''
 };
 
 export const login = (state = initialState, action) => {
     if (action.type === 'LOGIN_FORM_SUBMIT') {
         return {
             ...state,
-            error: ''
         };
     }
 
@@ -17,14 +15,6 @@ export const login = (state = initialState, action) => {
         return {
             ...state,
             token: action.payload.token,
-            error: ''
-        };
-    }
-
-    if (action.type === 'LOGIN_FORM_SUBMIT_ERROR') {
-        return {
-            ...state,
-            error: action.payload.error
         };
     }
 
