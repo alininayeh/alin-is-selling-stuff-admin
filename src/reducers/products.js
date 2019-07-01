@@ -4,7 +4,8 @@ const initialState = {
         name: '',
         description: '',
         image: '',
-        price: ''
+        price: '',
+        _id: null
     }
 };
 
@@ -34,6 +35,23 @@ export const products = (state = initialState, action) => {
                 ...state.product,
                 image: action.payload.imageUrl
             }
+        };
+    }
+
+    if (action.type === 'VIEW_SHOW_ADD_PRODUCT') {
+        return {
+            ...state,
+            product: {
+                ...state.product,
+                _id: null
+            }
+        };
+    }
+
+    if (action.type === 'VIEW_SHOW_EDIT_PRODUCT') {
+        return {
+            ...state,
+            product: action.payload.data
         };
     }
 

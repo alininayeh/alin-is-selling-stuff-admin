@@ -32,6 +32,19 @@ const api = {
 
         return res.json();
     },
+    async editProduct(token, formData) {
+        const res = await fetch(this.endpoint + 'products', {
+            method: 'PUT',
+            mode: 'cors',
+            headers: {
+                'token': token,
+                'Content-Type': 'application/x-www-form-urlencoded'
+            },
+            body: new URLSearchParams(formData)
+        });
+
+        return res.json();
+    },
     async upload(token, formData) {
         const res = await fetch(this.endpoint + 'upload', {
             method: 'POST',

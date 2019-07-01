@@ -69,6 +69,7 @@ body {
         padding: 10px;
 
         h2 {
+            flex-grow: 1;
             font-size: 14px;
             line-height: 19px;
             margin: 0;
@@ -77,6 +78,7 @@ body {
         button {
             flex-basis: 100px;
             margin: 0;
+            margin-left: 10px;
         }
     }
 }

@@ -16,9 +16,10 @@ const getHandleFormSubmitAction = e => {
 
     const token = store.getState().login.token;
     const formData = new FormData(e.currentTarget);
+    const editMode = store.getState().view.editMode;
     
     return async dispatch => {
-        const addProduct = await api.addProduct(token, formData);
+        const addProduct = editMode ? await api.editProduct(token, formData) : await api.addProduct(token, formData);
 
         if (!addProduct.error) {
             dispatch({
@@ -46,7 +47,7 @@ const getHandleChangeAction = e => {
     };
 };
 
-const AddProduct = ({error, cancel, addImage, handleFormSubmit, product, handleChange}) => {
+const AddProduct = ({error, cancel, addImage, handleFormSubmit, product, handleChange, editMode, productId}) => {
     if (error) alert(error);
 
     return (
@@ -56,12 +57,15 @@ const AddProduct = ({error, cancel, addImage, handleFormSubmit, product, handleC
                 <textarea name='description' placeholder='Description' required={true} value={product.description} onChange={handleChange}></textarea>
                 <input type='number' name='price' placeholder='Price' required={true} value={product.price} onChange={handleChange} />
                 {
-                    product.image ?
+                    !!product.image ?
                     <input type='hidden' name='image' value={product.image} /> :
                     <span className='AddProductForm-addImage' onClick={addImage}>Add image</span>
                 }
                 
-                <button>Add product</button>
+                <button>{editMode ? 'Edit product': 'Add product'}</button>
+                {
+                    !!productId && <input type='hidden' name='_id' value={productId} />
+                }
             </form>
             <button className='secondary' onClick={cancel}>Cancel</button>
         </div>
@@ -70,7 +74,9 @@ const AddProduct = ({error, cancel, addImage, handleFormSubmit, product, handleC
 
 const mapStateToProps = state => ({
     error: state.view.error,
-    product: state.products.product
+    product: state.products.product,
+    editMode: state.view.editMode,
+    productId: state.products.product._id
 });
 
 const mapDispatchToProps = dispatch => ({

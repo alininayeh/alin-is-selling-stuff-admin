@@ -2,7 +2,8 @@ const initialState = {
     showProducts: true,
     showAddProduct: false,
     showAddImage: false,
-    error: ''
+    error: '',
+    editMode: false
 };
 
 export const view = (state = initialState, action) => {
@@ -17,7 +18,17 @@ export const view = (state = initialState, action) => {
         return {
             ...state,
             showProducts: false,
-            showAddProduct: true
+            showAddProduct: true,
+            editMode: false
+        };
+    }
+
+    if (action.type === 'VIEW_SHOW_EDIT_PRODUCT') {
+        return {
+            ...state,
+            showProducts: false,
+            showAddProduct: true,
+            editMode: true
         };
     }
 
